@@ -30,6 +30,9 @@ export function Calculator() {
                     <button className={styles["calculate-btn"]}>Calculate</button>
                 <p className={styles.total}>Total price: 20€</p>
             </div>
+            <footer className={styles.footer}>
+                <p>By Jaakko Malmi</p>
+            </footer>
         </div>
     )
 }
