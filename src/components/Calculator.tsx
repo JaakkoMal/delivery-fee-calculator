@@ -49,6 +49,7 @@ export function Calculator({
                 <label className={styles.label}>Delivery distance</label>
                 <div className={styles.inputBox}>
                     <input className={styles.inputField} 
+                        maxLength={15}
                         value={deliveryDistance > 0 ? deliveryDistance : ""}
                         onChange={e => onChangeDeliveryDistance(e)}
                     />
@@ -57,6 +58,7 @@ export function Calculator({
                 <label className={styles.label}>Amount of items</label>    
                 <div className={styles.inputBox}>
                     <input className={styles.inputField}
+                        maxLength={15}
                         value={amountItems > 0 ? amountItems : ""}
                         onChange={e => onChangeAmountItems(e)}
                     />

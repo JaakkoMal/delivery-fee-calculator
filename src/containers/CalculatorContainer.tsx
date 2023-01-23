@@ -57,6 +57,7 @@ export function CalculatorContainer() {
 
     const calculateDeliveryCost = (variables: CalculationTypes) => {
         if(cartValue >= 100) {
+            console.log(`Over 100`, cartValue)
             setDeliveryCost(0)
             return
         }
