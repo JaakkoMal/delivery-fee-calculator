@@ -63,8 +63,8 @@ export function Calculator({
                         onChange={e => onChangeAmountItems(e)}
                     />
                 </div>
-                <label className={styles.label}>Time</label>
-                <div className={styles.reactDatePicker}>
+                <label className={styles.label}>Date & Time</label>
+                <div className={styles.reactDatePickerContainer}>
                     <DatePicker 
                         dateFormat="dd/MM/yyyy"
                         selected={orderDate}

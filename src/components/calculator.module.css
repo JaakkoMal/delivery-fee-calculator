@@ -30,7 +30,6 @@
     padding: 10px;
     margin-bottom: 50px;
     gap: 10px;
-    overflow-x: hidden;
 }
 
 .inputBox {
@@ -72,14 +71,21 @@ input::-webkit-inner-spin-button {
     top: 5px;
 }
 
-.reactDatePicker input {
+.reactDatePickerContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.reactDatePickerContainer input {
     outline: none !important;
     border: 1px solid #31525B;
     padding: 5px;
     border-radius: 5px;
 }
 
-.reactDatePicker input:focus-visible {
+.reactDatePickerContainer input:focus-visible {
     border: 1px solid #FFA101;
 }
 
