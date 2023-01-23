@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 import styles from "./calculator.module.css"
 
 type CalculatorProps = {
@@ -8,13 +9,19 @@ type CalculatorProps = {
     onChangeDeliveryDistance: (distance: React.ChangeEvent<HTMLInputElement>) => void
     amountItems: number
     onChangeAmountItems: (amount: React.ChangeEvent<HTMLInputElement>) => void
+    orderDate: Date
+    setOrderDate: (date: Date) => void
+    orderTime: Date
+    setOrderTime: (time: Date) => void
 }
 
 
 export function Calculator({ 
     cartValue, onChangeCartValue, 
     deliveryDistance, onChangeDeliveryDistance,
-    amountItems, onChangeAmountItems 
+    amountItems, onChangeAmountItems,
+    orderDate, setOrderDate,
+    orderTime, setOrderTime
 }: CalculatorProps) {
 
 
@@ -50,14 +57,29 @@ export function Calculator({
                     />
                 </div>
                 <label className={styles.label}>Time</label>
-                <div className={styles.inputBox}>
-                    <input className={styles.inputField} placeholder="dd/mm/yy    hh/mm" />
-                </div>
+                <div className={styles.reactDatePicker}>
+                    <DatePicker 
+                        dateFormat="dd/MM/yyyy"
+                        selected={orderDate}
+                        onChange={setOrderDate}
+                    />
+                    <DatePicker
+                        dateFormat="HH:mm"
+                        timeFormat="HH:mm"
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        selected={orderTime}
+                        onChange={setOrderTime}
+                    />
+                </div>    
                     <button className={styles["calculate-btn"]}>Calculate</button>
                 <p className={styles.total}>Total price: 20€</p>
                 <p>cart value: {cartValue}</p>
                 <p>delivery distance: {deliveryDistance}</p>
                 <p>amount of items: {amountItems}</p>
+                <p>order date: {orderDate.toString()}</p>
+                <p>order time: {orderTime.toString()}</p>
             </div>
             <footer className={styles.footer}>
                 <p>By Jaakko Malmi</p>

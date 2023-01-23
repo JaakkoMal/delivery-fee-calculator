@@ -5,14 +5,19 @@ type CalculatorProps = {
     total: number
 }
 
+/*const day = '11-01-2023'
+        const time = '17:00'
+        const daytime = day + ' ' + time
+        const newDate = new Date(daytime)
+        console.log(newDate)*/
 
 export function CalculatorContainer() {
 
     const [cartValue, setCartValue] = useState<number>(0)
     const [deliveryDistance, setDeliveryDistance] = useState<number>(0)
     const [amountItems, setAmountItems] = useState<number>(0)
-    const [date, setDate] = useState<string>("")
-    const [time, setTime] = useState<string>("")
+    const [orderDate, setOrderDate] = useState<Date>(new Date())
+    const [orderTime, setOrderTime] = useState<Date>(new Date())
 
 
     const onChangeCartValue = (e: React.ChangeEvent<HTMLInputElement> ) => {
@@ -36,6 +41,8 @@ export function CalculatorContainer() {
         } else {
             console.log("Not a number (delivery distance).")
         }
+
+        console.log(orderDate)
     }
 
     const onChangeAmountItems = (e: React.ChangeEvent<HTMLInputElement> ) => {
@@ -56,6 +63,10 @@ export function CalculatorContainer() {
             deliveryDistance={deliveryDistance}
             onChangeAmountItems={onChangeAmountItems}
             amountItems={amountItems}
+            setOrderDate={(date: Date) => setOrderDate(date)}
+            orderDate={orderDate}
+            setOrderTime={(time: Date) => setOrderTime(time)}
+            orderTime={orderTime}
             />
     )
 }
