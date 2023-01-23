@@ -1,6 +1,7 @@
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import styles from "./calculator.module.css"
+import { CalculationTypes } from '../containers/CalculatorContainer'
 
 type CalculatorProps = {
     cartValue: number
@@ -13,6 +14,8 @@ type CalculatorProps = {
     setOrderDate: (date: Date) => void
     orderTime: Date
     setOrderTime: (time: Date) => void
+    calculateDeliveryCost: (variables: CalculationTypes) => void
+    deliveryCost: number
 }
 
 
@@ -21,7 +24,9 @@ export function Calculator({
     deliveryDistance, onChangeDeliveryDistance,
     amountItems, onChangeAmountItems,
     orderDate, setOrderDate,
-    orderTime, setOrderTime
+    orderTime, setOrderTime,
+    calculateDeliveryCost,
+    deliveryCost
 }: CalculatorProps) {
 
 
@@ -73,13 +78,16 @@ export function Calculator({
                         onChange={setOrderTime}
                     />
                 </div>    
-                    <button className={styles["calculate-btn"]}>Calculate</button>
-                <p className={styles.total}>Total price: 20€</p>
-                <p>cart value: {cartValue}</p>
+                    <button className={styles["calculate-btn"]}
+                        onClick={() => calculateDeliveryCost({cartValue, deliveryDistance, amountItems, orderDate, orderTime})}
+                    >Calculate</button>
+                <p className={styles.total}>Delivery cost: {deliveryCost.toFixed(2)} €</p>
+                {/*<p>cart value: {cartValue}</p>
                 <p>delivery distance: {deliveryDistance}</p>
                 <p>amount of items: {amountItems}</p>
                 <p>order date: {orderDate.toString()}</p>
                 <p>order time: {orderTime.toString()}</p>
+                <p>total: {deliveryCost}</p>*/}
             </div>
             <footer className={styles.footer}>
                 <p>By Jaakko Malmi</p>
