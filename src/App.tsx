@@ -1,10 +1,10 @@
-import { Calculator } from './components/Calculator'
+import { CalculatorContainer } from './containers/CalculatorContainer'
 
 function App() {
 
 
   return (
-      <Calculator />
+      <CalculatorContainer />
   )
 }
 
