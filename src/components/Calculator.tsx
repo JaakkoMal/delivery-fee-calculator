@@ -1,33 +1,33 @@
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import styles from "./calculator.module.css"
-import { CalculationTypes } from '../containers/CalculatorContainer'
+import { OrderInfo } from '../types/Types'
 
-type CalculatorProps = {
-    cartValue: number
+type Props = {
+    orderInfo: OrderInfo
     onChangeCartValue: (value: React.ChangeEvent<HTMLInputElement>) => void
-    deliveryDistance: number
-    onChangeDeliveryDistance: (distance: React.ChangeEvent<HTMLInputElement>) => void
-    amountItems: number
-    onChangeAmountItems: (amount: React.ChangeEvent<HTMLInputElement>) => void
-    orderDate: Date
-    setOrderDate: (date: Date) => void
-    orderTime: Date
-    setOrderTime: (time: Date) => void
-    calculateDeliveryCost: (variables: CalculationTypes) => void
-    deliveryCost: number
+    onChangeDeliveryDistance: (value: React.ChangeEvent<HTMLInputElement>) => void
+    onChangeAmountItems: (value: React.ChangeEvent<HTMLInputElement>) => void
+    onChangeOrderDate: (value: Date) => void
+    onChangeOrderTime: (value: Date) => void
+    calculateDeliveryCost: () => void
 }
 
 
 export function Calculator({ 
-    cartValue, onChangeCartValue, 
-    deliveryDistance, onChangeDeliveryDistance,
-    amountItems, onChangeAmountItems,
-    orderDate, setOrderDate,
-    orderTime, setOrderTime,
+    orderInfo, 
+    onChangeCartValue,
+    onChangeDeliveryDistance,
+    onChangeAmountItems,
     calculateDeliveryCost,
-    deliveryCost
-}: CalculatorProps) {
+    onChangeOrderDate,
+    onChangeOrderTime
+}: Props) {
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        calculateDeliveryCost()
+    }
 
 
     return (
@@ -36,12 +36,12 @@ export function Calculator({
                 <h1>Wolt summer trainee 2023 pre-assignment</h1>
             </nav>
             <h1 className={styles.heading}>Calculate the total cost of your order and delivery!</h1>
-            <div className={styles.container}>
+            <form className={styles.container} onSubmit={handleSubmit}>
                 <label className={styles.label}>Cart Value</label>
                 <div className={styles.inputBox}>
                     <input className={styles.inputField}
                         type="number"
-                        value={cartValue > 0 ? cartValue : ""}
+                        value={orderInfo.cartValue > 0 ? orderInfo.cartValue : ""}
                         onChange={e => onChangeCartValue(e)}
                     />
                     <div className={styles.inputFieldIcon}>€</div>
@@ -50,7 +50,7 @@ export function Calculator({
                 <div className={styles.inputBox}>
                     <input className={styles.inputField} 
                         maxLength={15}
-                        value={deliveryDistance > 0 ? deliveryDistance : ""}
+                        value={orderInfo.deliveryDistance > 0 ? orderInfo.deliveryDistance : ""}
                         onChange={e => onChangeDeliveryDistance(e)}
                     />
                     <div className={styles.inputFieldIcon}>m</div>
@@ -59,7 +59,7 @@ export function Calculator({
                 <div className={styles.inputBox}>
                     <input className={styles.inputField}
                         maxLength={15}
-                        value={amountItems > 0 ? amountItems : ""}
+                        value={orderInfo.amountItems > 0 ? orderInfo.amountItems : ""}
                         onChange={e => onChangeAmountItems(e)}
                     />
                 </div>
@@ -67,8 +67,8 @@ export function Calculator({
                 <div className={styles.reactDatePickerContainer}>
                     <DatePicker 
                         dateFormat="dd/MM/yyyy"
-                        selected={orderDate}
-                        onChange={setOrderDate}
+                        selected={orderInfo.orderDate}
+                        onChange={onChangeOrderDate}
                     />
                     <DatePicker
                         dateFormat="HH:mm"
@@ -76,21 +76,19 @@ export function Calculator({
                         showTimeSelect
                         showTimeSelectOnly
                         timeIntervals={15}
-                        selected={orderTime}
-                        onChange={setOrderTime}
+                        selected={orderInfo.orderTime}
+                        onChange={onChangeOrderTime}
                     />
                 </div>    
-                    <button className={styles["calculate-btn"]}
-                        onClick={() => calculateDeliveryCost({cartValue, deliveryDistance, amountItems, orderDate, orderTime})}
-                    >Calculate</button>
-                <p className={styles.total}>Delivery cost: {deliveryCost.toFixed(2)} €</p>
+                    <input type="submit" value="Calculate" className={styles["calculate-btn"]}/>
+                <p className={styles.total}>Delivery cost: {orderInfo.deliveryCost.toFixed(2)} €</p>
                 {/*<p>cart value: {cartValue}</p>
                 <p>delivery distance: {deliveryDistance}</p>
                 <p>amount of items: {amountItems}</p>
                 <p>order date: {orderDate.toString()}</p>
                 <p>order time: {orderTime.toString()}</p>
                 <p>total: {deliveryCost}</p>*/}
-            </div>
+            </form>
             <footer className={styles.footer}>
                 <p>By Jaakko Malmi</p>
             </footer>
