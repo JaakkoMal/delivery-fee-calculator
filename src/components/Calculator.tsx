@@ -2,6 +2,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import styles from "./calculator.module.css"
 import { OrderInfo } from '../types/Types'
+import { checkInvalidCharacters } from '../utils/functions'
 
 type Props = {
     orderInfo: OrderInfo
@@ -42,6 +43,7 @@ export function Calculator({
                     <input className={styles.inputField}
                         type="number"
                         value={orderInfo.cartValue > 0 ? orderInfo.cartValue : ""}
+                        onKeyDown={checkInvalidCharacters}
                         onChange={e => onChangeCartValue(e)}
                     />
                     <div className={styles.inputFieldIcon}>€</div>
@@ -68,6 +70,7 @@ export function Calculator({
                     <DatePicker 
                         dateFormat="dd/MM/yyyy"
                         selected={orderInfo.orderDate}
+                        onKeyDown={e => e.preventDefault()}
                         onChange={onChangeOrderDate}
                     />
                     <DatePicker

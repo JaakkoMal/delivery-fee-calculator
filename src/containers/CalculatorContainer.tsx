@@ -20,7 +20,7 @@ export function CalculatorContainer() {
         e.preventDefault()
         const newCartValue = e.target.value
         // FIKSAA PELKÄT NUMEROT
-        const regex = /^[0-9\b]/
+        const regex: RegExp = /^[0-9\b]/
         if(regex.test(newCartValue) || newCartValue === ''){
             setOrderInfo(prev => { return {...prev, cartValue: Number(newCartValue)}})
         } else {
