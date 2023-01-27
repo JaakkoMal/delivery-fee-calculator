@@ -1,13 +1,23 @@
 import styles from "./calculator.module.css"
-import { checkInvalidCharacters } from "../utils/functions"
+import { checkInvalidCharactersForFloat } from "../utils/functions"
+import { useState } from 'react'
 
 type Props = {
     fieldName: string
-    floatValue: number
-    onChangeFloatValue: (value: React.ChangeEvent<HTMLInputElement>) => void
+    onChangeFloatValue: (value: number) => void
+    icon: string
 }
 
-export function FloatInput({ fieldName, floatValue, onChangeFloatValue }: Props) {
+export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
+
+    const [formattedFloat, setFormattedFloat] = useState<string>('')
+    const handleFloatValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        let currentFloat = e.target.value
+        setFormattedFloat(currentFloat)
+        onChangeFloatValue(Number(currentFloat))     
+    }
+    
     return (
         <>
             <label className={styles.label}>{fieldName}</label>
@@ -15,11 +25,11 @@ export function FloatInput({ fieldName, floatValue, onChangeFloatValue }: Props)
                 <input 
                     className={styles.inputField}
                     type="number"
-                    value={floatValue > 0 ? floatValue : ""}
-                    onKeyDown={checkInvalidCharacters}
-                    onChange={onChangeFloatValue}
+                    value={formattedFloat}
+                    onKeyDown={e => checkInvalidCharactersForFloat(e, formattedFloat)}
+                    onChange={handleFloatValueChange}
                 />
-                <div className={styles.inputFieldIcon}>€</div>
+                {icon && <div className={styles.inputFieldIcon}>{icon}</div> }
             </div>
         </>
     )

@@ -7,7 +7,7 @@ import { OrderInfo } from '../types/Types'
 
 type Props = {
     orderInfo: OrderInfo
-    onChangeCartValue: (value: React.ChangeEvent<HTMLInputElement>) => void
+    onChangeCartValue: (cartValue: number) => void
     onChangeDeliveryDistance: (value: React.ChangeEvent<HTMLInputElement>) => void
     onChangeAmountItems: (value: React.ChangeEvent<HTMLInputElement>) => void
     onChangeOrderDate: (value: Date) => void
@@ -39,18 +39,20 @@ export function Calculator({
             <form className={styles.container} onSubmit={handleSubmit}>
                 <FloatInput 
                     fieldName='Cart Value'
-                    floatValue={orderInfo.cartValue}
                     onChangeFloatValue={onChangeCartValue}
+                    icon="€"
                 />
                 <IntegerInput 
                     fieldName='Delivery Distance'
                     integerValue={orderInfo.deliveryDistance} 
-                    onChangeIntegerValue={onChangeDeliveryDistance} 
+                    onChangeIntegerValue={onChangeDeliveryDistance}
+                    icon="m" 
                 />
                 <IntegerInput 
                     fieldName='Amount Of Items'
                     integerValue={orderInfo.amountItems} 
                     onChangeIntegerValue={onChangeAmountItems}  
+                    icon=""
                 />
                 <DateAndTimeInput 
                     fieldName='Date & Time'

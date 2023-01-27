@@ -25,17 +25,16 @@ export function CalculatorContainer() {
 
     const [orderInfo, setOrderInfo] = useState<OrderInfo>(initialOrderInfo)
 
-    const onChangeCartValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault()
-        const newCartValue = e.target.value
-        setOrderInfo(prev => { return {...prev, cartValue: Number(newCartValue)}})
-        console.log(newCartValue)
+    const onChangeCartValue = (cartValue: number) => {
+        setOrderInfo(prev => { return {...prev, cartValue: Number(cartValue)}})
+        console.log("Flotarilla: ", cartValue)
     }
 
     const onChangeDeliveryDistance = (e: React.ChangeEvent<HTMLInputElement> ) => {
         e.preventDefault()
         const newDeliveryDistance = Number(e.target.value)
         if(!Number.isNaN(newDeliveryDistance)){
+            console.log(newDeliveryDistance)
             setOrderInfo(prev => { return {...prev, deliveryDistance: newDeliveryDistance}})
         } else {
             console.log("Not a number (delivery distance).")

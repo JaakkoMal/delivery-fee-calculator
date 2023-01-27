@@ -1,6 +1,14 @@
 export const checkInvalidCharacters = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    const invalidCharacters: string[] = ['e','+','-',',','.']
+    if(invalidCharacters.includes(e.key)) e.preventDefault()
+}
+
+export const checkInvalidCharactersForFloat = (e: React.KeyboardEvent<HTMLInputElement>, currentValue: string): void => {
     const invalidCharacters: string[] = ['e','+','-']
     if(invalidCharacters.includes(e.key)) e.preventDefault()
+
+    const commaAndDot = /^[\.\,]/
+    if(commaAndDot.test(e.key) && currentValue.includes('.')) e.preventDefault()
 }
 
 // Delivery Cost calculation functions

@@ -4,10 +4,11 @@ import { checkInvalidCharacters } from "../utils/functions"
 type Props = {
     fieldName: string
     integerValue: number
+    icon: string
     onChangeIntegerValue: (value: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue }: Props) {
+export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue, icon }: Props) {
     return (
         <>
             <label className={styles.label}>{fieldName}</label>
@@ -19,7 +20,7 @@ export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue }: 
                     onKeyDown={checkInvalidCharacters}
                     onChange={onChangeIntegerValue}
                 />
-                <div className={styles.inputFieldIcon}>€</div>
+                {icon && <div className={styles.inputFieldIcon}>{icon}</div>}
             </div>
         </>
     )
