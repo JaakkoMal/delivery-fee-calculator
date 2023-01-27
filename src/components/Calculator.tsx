@@ -1,8 +1,9 @@
-import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import styles from "./calculator.module.css"
+import { FloatInput } from './FloatInput'
+import { IntegerInput } from './IntegerInput'
+import { DateAndTimeInput } from './DateAndTimeInput'
 import { OrderInfo } from '../types/Types'
-import { checkInvalidCharacters } from '../utils/functions'
 
 type Props = {
     orderInfo: OrderInfo
@@ -13,7 +14,6 @@ type Props = {
     onChangeOrderTime: (value: Date) => void
     calculateDeliveryCost: (fullOrderInfo: OrderInfo) => void
 }
-
 
 export function Calculator({ 
     orderInfo, 
@@ -30,7 +30,6 @@ export function Calculator({
         calculateDeliveryCost(orderInfo)
     }
 
-
     return (
         <div className={styles.mainContainer}>
             <nav className={styles.banner}>
@@ -38,66 +37,34 @@ export function Calculator({
             </nav>
             <h1 className={styles.heading}>Calculate the total cost of your order and delivery!</h1>
             <form className={styles.container} onSubmit={handleSubmit}>
-                <label className={styles.label}>Cart Value</label>
-                <div className={styles.inputBox}>
-                    <input 
-                        className={styles.inputField}
-                        type="number"
-                        value={orderInfo.cartValue > 0 ? orderInfo.cartValue : ""}
-                        onKeyDown={checkInvalidCharacters}
-                        onChange={e => onChangeCartValue(e)}
-                    />
-                    <div className={styles.inputFieldIcon}>€</div>
-                </div>
-                <label className={styles.label}>Delivery distance</label>
-                <div className={styles.inputBox}>
-                    <input 
-                        className={styles.inputField} 
-                        maxLength={15}
-                        value={orderInfo.deliveryDistance > 0 ? orderInfo.deliveryDistance : ""}
-                        onChange={e => onChangeDeliveryDistance(e)}
-                    />
-                    <div className={styles.inputFieldIcon}>m</div>
-                </div>
-                <label className={styles.label}>Amount of items</label>    
-                <div className={styles.inputBox}>
-                    <input 
-                        className={styles.inputField}
-                        maxLength={15}
-                        value={orderInfo.amountItems > 0 ? orderInfo.amountItems : ""}
-                        onChange={e => onChangeAmountItems(e)}
-                    />
-                </div>
-                <label className={styles.label}>Date & Time</label>
-                <div className={styles.reactDatePickerContainer}>
-                    <DatePicker 
-                        dateFormat="dd/MM/yyyy"
-                        selected={orderInfo.orderDate}
-                        onKeyDown={e => e.preventDefault()}
-                        onChange={onChangeOrderDate}
-                    />
-                    <DatePicker
-                        dateFormat="HH:mm"
-                        timeFormat="HH:mm"
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeIntervals={15}
-                        selected={orderInfo.orderTime}
-                        onChange={onChangeOrderTime}
-                    />
-                </div>    
-                    <input 
-                        className={styles["calculate-btn"]}
-                        type="submit" 
-                        value="Calculate"
-                    />
-                <p className={styles.total}>Delivery cost: {orderInfo.deliveryCost.toFixed(2)} €</p>
-                {/*<p>cart value: {cartValue}</p>
-                <p>delivery distance: {deliveryDistance}</p>
-                <p>amount of items: {amountItems}</p>
-                <p>order date: {orderDate.toString()}</p>
-                <p>order time: {orderTime.toString()}</p>
-                <p>total: {deliveryCost}</p>*/}
+                <FloatInput 
+                    fieldName='Cart Value'
+                    floatValue={orderInfo.cartValue}
+                    onChangeFloatValue={onChangeCartValue}
+                />
+                <IntegerInput 
+                    fieldName='Delivery Distance'
+                    integerValue={orderInfo.deliveryDistance} 
+                    onChangeIntegerValue={onChangeDeliveryDistance} 
+                />
+                <IntegerInput 
+                    fieldName='Amount Of Items'
+                    integerValue={orderInfo.amountItems} 
+                    onChangeIntegerValue={onChangeAmountItems}  
+                />
+                <DateAndTimeInput 
+                    fieldName='Date & Time'
+                    date={orderInfo.orderDate} 
+                    time={orderInfo.orderTime}
+                    onChangeDate={onChangeOrderDate} 
+                    onChangeTime={onChangeOrderTime}
+                /> 
+                <input 
+                    className={styles["calculate-btn"]}
+                    type="submit" 
+                    value="Calculate"
+                />
+                <p className={styles.total}>Delivery Cost: {orderInfo.deliveryCost.toFixed(2)} €</p>
             </form>
             <footer className={styles.footer}>
                 <p>By Jaakko Malmi</p>
