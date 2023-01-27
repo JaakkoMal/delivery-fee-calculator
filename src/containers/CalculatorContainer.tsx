@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import { Calculator } from '../components/Calculator'
 import { OrderInfo } from '../types/Types'
+import { 
+    checkIfCartValueHundredOrMore,
+    addSmallOrderSurchargeIfNeeded,
+    addFeeForEveryBeginning500m,
+    checkIfDeliveryCostAtMaximum,
+    addFeeForMultipleItems,
+    isFridayRush,
+    addRushTimeFee
+} from '../utils/functions'
 
 
 const initialOrderInfo: OrderInfo = {
@@ -51,32 +60,32 @@ export function CalculatorContainer() {
         setOrderInfo(prev => { return {...prev, orderTime: newOrderTime}})
     }
 
+    const calculateDeliveryCost = (fullOrderInfo: OrderInfo) => {
+        let totalDeliveryCost: number = 2
+        const isFreeDelivery = checkIfCartValueHundredOrMore(fullOrderInfo.cartValue)
 
-    const calculateDeliveryCost = () => {
-        // Check if user has made any inputs
-        if(orderInfo.cartValue === 0 && orderInfo.amountItems === 0 && orderInfo.deliveryDistance === 0) return
-        if(orderInfo.cartValue >= 100) {
-            setOrderInfo(prev => {return {...prev, deliveryCost: 0}})
+        if (isFreeDelivery) {
+            setOrderInfo(prev => { return {...prev, deliveryCost: 0}})
             return
         }
-        // Delivery cost with first 1000m base cost
-        let totalDeliveryCost: number = 2
-        // Add subcharge if needed
-        if(orderInfo.cartValue < 10) totalDeliveryCost += 10 - orderInfo.cartValue
-        // Add additional 1€ for each beginning 500m after the first 1000m
-        if(orderInfo.deliveryDistance > 1000){
-            const deliveryDistanceAfterOneKilometer = orderInfo.deliveryDistance - 1000
-            const costToAdd = Math.ceil(deliveryDistanceAfterOneKilometer / 500)
-            totalDeliveryCost += costToAdd
+        
+        totalDeliveryCost += addSmallOrderSurchargeIfNeeded(fullOrderInfo.cartValue)
+        totalDeliveryCost += addFeeForEveryBeginning500m(fullOrderInfo.deliveryDistance)
+
+        if (!checkIfDeliveryCostAtMaximum(totalDeliveryCost)) {
+            totalDeliveryCost += addFeeForMultipleItems(fullOrderInfo.amountItems)
         }
-        // See if more than 12 items
-        if(orderInfo.amountItems > 12 && totalDeliveryCost < 15) totalDeliveryCost += 1.2
-        if(orderInfo.amountItems >= 5 && totalDeliveryCost < 15) totalDeliveryCost += (orderInfo.amountItems - 4) * 0.5  
-        if(totalDeliveryCost < 15 && orderInfo.orderDate.getDay() === 5 && (orderInfo.orderTime.getUTCHours() >= 15 && orderInfo.orderTime.getUTCHours() < 19)) totalDeliveryCost *= 1.2
-        if(totalDeliveryCost > 15) {
-            setOrderInfo(prev => { return {...prev, deliveryCost: 15} })
+
+        if (!checkIfDeliveryCostAtMaximum(totalDeliveryCost)) {
+            if (isFridayRush(fullOrderInfo.orderDate, fullOrderInfo.orderTime)) {
+                totalDeliveryCost = addRushTimeFee(totalDeliveryCost)
+            }
+        }
+
+        if (!checkIfDeliveryCostAtMaximum(totalDeliveryCost)) {
+            setOrderInfo(prev => { return {...prev, deliveryCost: totalDeliveryCost}})
         } else {
-            setOrderInfo(prev => { return {...prev, deliveryCost: totalDeliveryCost} })
+            setOrderInfo(prev => { return {...prev, deliveryCost: 15}})
         }
     }
 
