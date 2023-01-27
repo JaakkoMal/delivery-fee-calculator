@@ -48,11 +48,10 @@
     border: 1px solid #31525B;
     border-radius: 5px;
     padding: 5px 0 5px 10px;
-    cursor: pointer;
-    
 }
 
-.inputField:focus {
+.inputField:focus,
+.inputField:hover {
     outline: none !important;
     border: 1px solid #FFA101;
     cursor: pointer;
@@ -72,20 +71,22 @@ input::-webkit-inner-spin-button {
 }
 
 .reactDatePickerContainer {
-    position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 5px;
 }
 
 .reactDatePickerContainer input {
+    width: 50%;
     outline: none !important;
     border: 1px solid #31525B;
     padding: 5px;
     border-radius: 5px;
 }
 
-.reactDatePickerContainer input:focus-visible {
+.reactDatePickerContainer input:focus-visible,
+.reactDatePickerContainer input:hover {
     border: 1px solid #FFA101;
 }
 
@@ -100,6 +101,15 @@ input::-webkit-inner-spin-button {
     color: #31525B;
     background-color: #FFA101;
     cursor: pointer;
+}
+
+.calculate-btn:hover {
+    background-color: #f8a81e;
+}
+
+.calculate-btn:active {
+    background-color: #31525B;
+    color: #f8a81e;
 }
 
 .total {

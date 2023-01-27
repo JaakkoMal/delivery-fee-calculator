@@ -40,7 +40,8 @@ export function Calculator({
             <form className={styles.container} onSubmit={handleSubmit}>
                 <label className={styles.label}>Cart Value</label>
                 <div className={styles.inputBox}>
-                    <input className={styles.inputField}
+                    <input 
+                        className={styles.inputField}
                         type="number"
                         value={orderInfo.cartValue > 0 ? orderInfo.cartValue : ""}
                         onKeyDown={checkInvalidCharacters}
@@ -50,7 +51,8 @@ export function Calculator({
                 </div>
                 <label className={styles.label}>Delivery distance</label>
                 <div className={styles.inputBox}>
-                    <input className={styles.inputField} 
+                    <input 
+                        className={styles.inputField} 
                         maxLength={15}
                         value={orderInfo.deliveryDistance > 0 ? orderInfo.deliveryDistance : ""}
                         onChange={e => onChangeDeliveryDistance(e)}
@@ -59,7 +61,8 @@ export function Calculator({
                 </div>
                 <label className={styles.label}>Amount of items</label>    
                 <div className={styles.inputBox}>
-                    <input className={styles.inputField}
+                    <input 
+                        className={styles.inputField}
                         maxLength={15}
                         value={orderInfo.amountItems > 0 ? orderInfo.amountItems : ""}
                         onChange={e => onChangeAmountItems(e)}
@@ -83,7 +86,11 @@ export function Calculator({
                         onChange={onChangeOrderTime}
                     />
                 </div>    
-                    <input type="submit" value="Calculate" className={styles["calculate-btn"]}/>
+                    <input 
+                        className={styles["calculate-btn"]}
+                        type="submit" 
+                        value="Calculate"
+                    />
                 <p className={styles.total}>Delivery cost: {orderInfo.deliveryCost.toFixed(2)} €</p>
                 {/*<p>cart value: {cartValue}</p>
                 <p>delivery distance: {deliveryDistance}</p>
