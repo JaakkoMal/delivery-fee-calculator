@@ -2,15 +2,14 @@ import { useState } from 'react'
 import { Calculator } from '../components/Calculator'
 import { OrderInfo } from '../types/Types'
 import { 
-    checkIfCartValueHundredOrMore,
+    isCartValueHundredOrMore,
     addSmallOrderSurchargeIfNeeded,
     addFeeForEveryBeginning500m,
-    checkIfDeliveryCostAtMaximum,
+    isDeliveryCostAtMaximum,
     addFeeForMultipleItems,
     isFridayRush,
     addRushTimeFee
 } from '../utils/functions'
-
 
 const initialOrderInfo: OrderInfo = {
     cartValue: 0,
@@ -61,7 +60,7 @@ export function CalculatorContainer() {
 
     const calculateDeliveryCost = (fullOrderInfo: OrderInfo) => {
         let totalDeliveryCost: number = 2
-        const isFreeDelivery = checkIfCartValueHundredOrMore(fullOrderInfo.cartValue)
+        const isFreeDelivery = isCartValueHundredOrMore(fullOrderInfo.cartValue)
 
         if (isFreeDelivery) {
             setOrderInfo(prev => { return {...prev, deliveryCost: 0}})
@@ -71,17 +70,17 @@ export function CalculatorContainer() {
         totalDeliveryCost += addSmallOrderSurchargeIfNeeded(fullOrderInfo.cartValue)
         totalDeliveryCost += addFeeForEveryBeginning500m(fullOrderInfo.deliveryDistance)
 
-        if (!checkIfDeliveryCostAtMaximum(totalDeliveryCost)) {
+        if (!isDeliveryCostAtMaximum(totalDeliveryCost)) {
             totalDeliveryCost += addFeeForMultipleItems(fullOrderInfo.amountItems)
         }
 
-        if (!checkIfDeliveryCostAtMaximum(totalDeliveryCost)) {
+        if (!isDeliveryCostAtMaximum(totalDeliveryCost)) {
             if (isFridayRush(fullOrderInfo.orderDate, fullOrderInfo.orderTime)) {
                 totalDeliveryCost = addRushTimeFee(totalDeliveryCost)
             }
         }
 
-        if (!checkIfDeliveryCostAtMaximum(totalDeliveryCost)) {
+        if (!isDeliveryCostAtMaximum(totalDeliveryCost)) {
             setOrderInfo(prev => { return {...prev, deliveryCost: totalDeliveryCost}})
         } else {
             setOrderInfo(prev => { return {...prev, deliveryCost: 15}})

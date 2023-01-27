@@ -13,7 +13,7 @@ export const checkInvalidCharactersForFloat = (e: React.KeyboardEvent<HTMLInputE
 
 // Delivery Cost calculation functions
 
-export const checkIfCartValueHundredOrMore = (cartValue: number): boolean => {
+export const isCartValueHundredOrMore = (cartValue: number): boolean => {
     const limitValueForFreeDelivery: number = 100
     if (cartValue >= limitValueForFreeDelivery) return true
     return false
@@ -34,7 +34,7 @@ export const addFeeForEveryBeginning500m = (deliveryDistance: number): number =>
     return 0
 }
 
-export const checkIfDeliveryCostAtMaximum = (currentDeliveryCost: number): boolean => {
+export const isDeliveryCostAtMaximum = (currentDeliveryCost: number): boolean => {
     const maxDeliveryCost: number = 15
     return currentDeliveryCost >= maxDeliveryCost
 }
