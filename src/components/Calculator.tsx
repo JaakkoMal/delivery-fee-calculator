@@ -12,7 +12,7 @@ type Props = {
     onChangeAmountItems: (value: React.ChangeEvent<HTMLInputElement>) => void
     onChangeOrderDate: (value: Date) => void
     onChangeOrderTime: (value: Date) => void
-    calculateDeliveryCost: (fullOrderInfo: OrderInfo) => void
+    onChangeDeliveryCost: (fullOrderInfo: OrderInfo) => void
 }
 
 export function Calculator({ 
@@ -20,14 +20,14 @@ export function Calculator({
     onChangeCartValue,
     onChangeDeliveryDistance,
     onChangeAmountItems,
-    calculateDeliveryCost,
     onChangeOrderDate,
-    onChangeOrderTime
+    onChangeOrderTime,
+    onChangeDeliveryCost
 }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        calculateDeliveryCost(orderInfo)
+        onChangeDeliveryCost(orderInfo)
     }
 
     return (
