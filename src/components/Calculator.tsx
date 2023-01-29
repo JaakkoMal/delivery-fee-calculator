@@ -13,6 +13,7 @@ type Props = {
     onChangeOrderDate: (value: Date) => void
     onChangeOrderTime: (value: Date) => void
     onChangeDeliveryCost: (fullOrderInfo: OrderInfo) => void
+    isCalculationDisabled: () => boolean
 }
 
 export function Calculator({ 
@@ -22,7 +23,8 @@ export function Calculator({
     onChangeAmountItems,
     onChangeOrderDate,
     onChangeOrderTime,
-    onChangeDeliveryCost
+    onChangeDeliveryCost,
+    isCalculationDisabled
 }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -65,6 +67,7 @@ export function Calculator({
                     className={styles["calculate-btn"]}
                     type="submit" 
                     value="Calculate"
+                    disabled={isCalculationDisabled() ? true : false}
                 />
                 <p className={styles.total}>Delivery Cost: {orderInfo.deliveryCost.toFixed(2)} €</p>
             </form>

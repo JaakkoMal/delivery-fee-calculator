@@ -34,7 +34,6 @@ export const addSmallOrderSurchargeIfNeeded = (cartValue: number): number => {
     const minValueForNoSurchargeInCents = 1000
     const cartValueInCents = cartValue * 100
     if (cartValueInCents < minValueForNoSurchargeInCents) {
-        console.log ((minValueForNoSurchargeInCents - cartValueInCents) / 100)
         return (minValueForNoSurchargeInCents - cartValueInCents) / 100
     }
     return 0
