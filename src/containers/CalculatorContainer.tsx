@@ -18,6 +18,7 @@ export function CalculatorContainer() {
 
     const onChangeCartValue = (cartValue: number) => {
         setOrderInfo(prev => { return {...prev, cartValue: Number(cartValue)}})
+        console.log('Flotarilla: ' , cartValue)
     }
 
     const onChangeDeliveryDistance = (e: React.ChangeEvent<HTMLInputElement> ) => {
@@ -49,6 +50,8 @@ export function CalculatorContainer() {
     }
 
     const onChangeDeliveryCost = (fullOrderInfo: OrderInfo) => {
+        console.log("Full Order: ", fullOrderInfo)
+        console.log("Order: ", orderInfo)
         setOrderInfo(prev => { return {...prev, deliveryCost: calculateDeliveryCost(fullOrderInfo)}})
     }
 

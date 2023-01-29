@@ -13,6 +13,13 @@ export const checkInvalidCharactersForFloat = (e: React.KeyboardEvent<HTMLInputE
     if (commaAndDot.test(e.key) && currentValue.includes('.')) e.preventDefault()
 }
 
+// Function to make sure user input never has more than 2 decimals
+export const checkDecimalCount = (floatValueString: string): boolean => {
+    const floatValueWithDecimalPoint: string = floatValueString.replace(',', '.')
+    if ((floatValueWithDecimalPoint.includes('.') && floatValueWithDecimalPoint.split('.')[1].length > 2)) return true
+    return false
+}
+
 // Delivery Cost calculation functions
 
 export const isCartValueHundredOrMore = (cartValue: number): boolean => {
@@ -22,6 +29,8 @@ export const isCartValueHundredOrMore = (cartValue: number): boolean => {
 }
 
 export const addSmallOrderSurchargeIfNeeded = (cartValue: number): number => {
+    // Use cents in calculations to prevent rounding errors. Multiplying cartValue by hundred is enough, 
+    // since checkDecimalCount prevents more than 2 decimals in user input for cartValue
     const minValueForNoSurchargeInCents = 1000
     const cartValueInCents = cartValue * 100
     if (cartValueInCents < minValueForNoSurchargeInCents) {

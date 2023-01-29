@@ -1,5 +1,5 @@
 import styles from "./calculator.module.css"
-import { checkInvalidCharactersForFloat } from "../utils/functions"
+import { checkInvalidCharactersForFloat, checkDecimalCount } from "../utils/functions"
 import { useState } from 'react'
 
 type Props = {
@@ -14,6 +14,7 @@ export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
     const handleFloatValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         let currentFloat = e.target.value
+        if (checkDecimalCount(currentFloat)) return
         setFormattedFloat(currentFloat)
         onChangeFloatValue(Number(currentFloat))     
     }

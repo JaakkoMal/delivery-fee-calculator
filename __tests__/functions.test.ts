@@ -7,7 +7,8 @@ import {
     isDeliveryCostAtMaximum,
     addFeeForMultipleItems,
     isFridayRush,
-    addRushTimeFee
+    addRushTimeFee,
+    checkDecimalCount
 } from '../src/utils/functions'
 
 import {
@@ -42,7 +43,7 @@ describe('addSmallOrderSurchargeIfNeeded', () => {
     it ('returns 10 - provided value if the provided value is less than 10', () =>{
         expect(addSmallOrderSurchargeIfNeeded(1)).toBe(9)
         expect(addSmallOrderSurchargeIfNeeded(5)).toBe(5)
-        expect(addSmallOrderSurchargeIfNeeded(3.5)).toBe(6.5)
+        expect(addSmallOrderSurchargeIfNeeded(3.50)).toBe(6.50)
         expect(addSmallOrderSurchargeIfNeeded(9.86)).toBe(0.14)
     })
 })
@@ -144,5 +145,16 @@ describe('calculateDeliveryCost', () => {
         expect(calculateDeliveryCost(mockOrderInfoMixedFees[1])).toBe(4.6)
         expect(calculateDeliveryCost(mockOrderInfoMixedFees[2])).toBe(5.52)
         expect(calculateDeliveryCost(mockOrderInfoMixedFees[3])).toBe(12.96)
+    })
+})
+
+// User inputs
+describe('checkDecimalCount', () => {
+    it ('returns true when provided number string has more than 2 decimals', () => {
+        expect(checkDecimalCount('123')).toBe(false)
+        expect(checkDecimalCount('123.45')).toBe(false)
+        expect(checkDecimalCount('123,45')).toBe(false)
+        expect(checkDecimalCount('123.123')).toBe(true)
+        expect(checkDecimalCount('123,123')).toBe(true)
     })
 })

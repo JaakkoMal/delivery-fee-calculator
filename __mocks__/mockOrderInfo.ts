@@ -1,5 +1,7 @@
+import { OrderInfo } from '../src/types/Types'
+
 // No inputs
-export const mockOrderInfoZeroInputs = [
+export const mockOrderInfoZeroInputs: OrderInfo[] = [
     {   // No cart value or amount items
         cartValue: 0,
         deliveryDistance: 0,
@@ -27,7 +29,7 @@ export const mockOrderInfoZeroInputs = [
 ]
 
 // No surcharge, no km fee, no multiple item fee, not friday rush
-export const mockOrderInfoBasic = [
+export const mockOrderInfoBasic: OrderInfo[] = [
     {
         cartValue: 20,
         deliveryDistance: 900,
@@ -46,7 +48,7 @@ export const mockOrderInfoBasic = [
     },
 ]
 // Only small order fee
-export const mockOrderInfoSmallOrder = [
+export const mockOrderInfoSmallOrder: OrderInfo[] = [
     {   
         cartValue: 8,
         deliveryDistance: 900,
@@ -73,7 +75,7 @@ export const mockOrderInfoSmallOrder = [
     },
 ]
 // Only km fee
-export const mockOrderInfoKm = [
+export const mockOrderInfoKm: OrderInfo[] = [
     { 
         cartValue: 20,
         deliveryDistance: 1001,
@@ -100,7 +102,7 @@ export const mockOrderInfoKm = [
     }
 ]
 
-export const mockOrderInfoItemAmount = [
+export const mockOrderInfoItemAmount: OrderInfo[] = [
     { 
         cartValue: 20,
         deliveryDistance: 1000,
@@ -135,7 +137,7 @@ export const mockOrderInfoItemAmount = [
     },
 ]
 // Only friday rush fee
-export const mockOrderInfoFridayRush = [
+export const mockOrderInfoFridayRush: OrderInfo[] = [
     { 
         cartValue: 20,
         deliveryDistance: 1000,
@@ -162,7 +164,7 @@ export const mockOrderInfoFridayRush = [
     },
 ]
     
-export const mockOrderInfoMixedFees = [
+export const mockOrderInfoMixedFees: OrderInfo[] = [
     {   // Cart value over 100 and friday rush
         cartValue: 100.90,
         deliveryDistance: 1000,
