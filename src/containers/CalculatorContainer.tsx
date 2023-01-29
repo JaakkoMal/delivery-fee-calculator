@@ -44,6 +44,10 @@ export function CalculatorContainer() {
         setOrderInfo(prev => { return {...prev, orderTime: newOrderTime}})
     }
 
+    const isCalculationDisabled = (): boolean => {
+        return (orderInfo.cartValue === 0 || orderInfo.deliveryDistance === 0 || orderInfo.amountItems === 0)
+    }
+
     const onChangeDeliveryCost = (fullOrderInfo: OrderInfo) => {
         setOrderInfo(prev => { return {...prev, deliveryCost: calculateDeliveryCost(fullOrderInfo)}})
     }
@@ -57,6 +61,7 @@ export function CalculatorContainer() {
         onChangeOrderDate={onChangeOrderDate}
         onChangeOrderTime={onChangeOrderTime}
         onChangeDeliveryCost={onChangeDeliveryCost}
+        isCalculationDisabled={isCalculationDisabled}
         />
     )
 }
