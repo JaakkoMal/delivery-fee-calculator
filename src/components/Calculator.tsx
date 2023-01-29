@@ -35,7 +35,7 @@ export function Calculator({
             <nav className={styles.banner}>
                 <h1>Wolt summer trainee 2023 pre-assignment</h1>
             </nav>
-            <h1 className={styles.heading}>Calculate the total cost of your order and delivery!</h1>
+            <h1 className={styles.heading}>Calculate the cost of your delivery!</h1>
             <form className={styles.container} onSubmit={handleSubmit}>
                 <FloatInput 
                     fieldName='Cart Value'
