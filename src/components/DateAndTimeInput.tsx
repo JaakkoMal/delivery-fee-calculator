@@ -10,7 +10,9 @@ type Props = {
     onChangeTime: (value: Date) => void
 }
 
+
 export function DateAndTimeInput({ fieldName, date, time, onChangeDate, onChangeTime }: Props) {
+
     return (
         <>
             <label className={styles.label}>{fieldName}</label>
@@ -26,8 +28,9 @@ export function DateAndTimeInput({ fieldName, date, time, onChangeDate, onChange
                     timeFormat="HH:mm"
                     showTimeSelect
                     showTimeSelectOnly
-                    timeIntervals={15}
+                    timeIntervals={5}
                     selected={time}
+                    strictParsing
                     onChange={onChangeTime}
                 />
             </div>
