@@ -8,7 +8,9 @@ import {
     addFeeForMultipleItems,
     isFridayRush,
     addRushTimeFee,
-    checkDecimalCount
+    checkDecimalCount,
+    isValidForIntegerCharacter,
+    isValidForFloatValue
 } from '../src/utils/functions'
 
 import {
@@ -145,6 +147,7 @@ describe('calculateDeliveryCost', () => {
         expect(calculateDeliveryCost(mockOrderInfoMixedFees[1])).toBe(4.6)
         expect(calculateDeliveryCost(mockOrderInfoMixedFees[2])).toBe(5.52)
         expect(calculateDeliveryCost(mockOrderInfoMixedFees[3])).toBe(12.96)
+        expect(calculateDeliveryCost(mockOrderInfoMixedFees[4])).toBe(15)
     })
 })
 
@@ -158,3 +161,26 @@ describe('checkDecimalCount', () => {
         expect(checkDecimalCount('123,123')).toBe(true)
     })
 })
+
+describe('isValidForIntegerCharacter', () => {
+    it ('returns true if character is a number and false if anything but number', () => {
+        expect(isValidForIntegerCharacter('1')).toBe(true)
+        expect(isValidForIntegerCharacter('0')).toBe(true)
+        expect(isValidForIntegerCharacter('.')).toBe(false)
+        expect(isValidForIntegerCharacter('e')).toBe(false)
+        expect(isValidForIntegerCharacter('-')).toBe(false)
+    })
+})
+
+describe('isValidForFloatValue', () => {
+    it ("returns true if input is not '+', '-' or 'e'. In case input is ',' or '.' returns true if existing value does not already include a .", () => {
+        expect(isValidForFloatValue('1', '')).toBe(true)
+        expect(isValidForFloatValue('.', '12')).toBe(true)
+        expect(isValidForFloatValue('.', '12.0')).toBe(false)
+        expect(isValidForFloatValue(',', '12.0')).toBe(false)
+        expect(isValidForFloatValue('+', '1')).toBe(false)
+        expect(isValidForFloatValue('e', '144')).toBe(false)
+    })
+})
+
+
