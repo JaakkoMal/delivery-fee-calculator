@@ -1,16 +1,17 @@
 import { OrderInfo } from '../types/Types'
 
-export const checkInvalidCharacters = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+export const isValidForIntegerCharacter = (inputValue: string): boolean => {
     const invalidCharacters: string[] = ['e','+','-',',','.']
-    if (invalidCharacters.includes(e.key)) e.preventDefault()
+    if (invalidCharacters.includes(inputValue)) return false
+    return true
 }
 
-export const checkInvalidCharactersForFloat = (e: React.KeyboardEvent<HTMLInputElement>, currentValue: string): void => {
+export const isValidForFloatValue = (inputValue: string, currentValue: string): boolean => {
     const invalidCharacters: string[] = ['e','+','-']
-    if (invalidCharacters.includes(e.key)) e.preventDefault()
-
     const commaAndDot = /^[\.\,]/
-    if (commaAndDot.test(e.key) && currentValue.includes('.')) e.preventDefault()
+    if (invalidCharacters.includes(inputValue)) return false
+    if (commaAndDot.test(inputValue) && currentValue.includes('.' || ',')) return false
+    return true
 }
 
 // Function to make sure user input never has more than 2 decimals

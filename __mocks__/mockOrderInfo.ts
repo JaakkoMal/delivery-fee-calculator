@@ -196,6 +196,14 @@ export const mockOrderInfoMixedFees: OrderInfo[] = [
         orderDate: new Date('2023-01-27T03:00:00Z'),
         orderTime: new Date('2023-01-28T17:30:00Z'),
         deliveryCost: 0
+    },
+    { // Max out delivery cost
+        cartValue: 2,
+        deliveryDistance: 3001,
+        amountItems: 13,
+        orderDate: new Date('2023-01-27T03:00:00Z'),
+        orderTime: new Date('2023-01-28T17:30:00Z'),
+        deliveryCost: 0
     }
 ]
 

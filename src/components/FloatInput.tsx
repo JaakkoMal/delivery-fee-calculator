@@ -1,5 +1,5 @@
 import styles from "./calculator.module.css"
-import { checkInvalidCharactersForFloat, checkDecimalCount } from "../utils/functions"
+import { isValidForFloatValue, checkDecimalCount } from "../utils/functions"
 import { useState } from 'react'
 
 type Props = {
@@ -18,6 +18,10 @@ export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
         setFormattedFloat(currentFloat)
         onChangeFloatValue(Number(currentFloat))     
     }
+
+    const checkInputValidity = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (!isValidForFloatValue(e.key, formattedFloat)) e.preventDefault()
+    }
     
     return (
         <>
@@ -27,7 +31,7 @@ export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
                     className={styles.inputField}
                     type="number"
                     value={formattedFloat}
-                    onKeyDown={e => checkInvalidCharactersForFloat(e, formattedFloat)}
+                    onKeyDown={checkInputValidity}
                     onChange={handleFloatValueChange}
                 />
                 {icon && <div className={styles.inputFieldIcon}>{icon}</div> }

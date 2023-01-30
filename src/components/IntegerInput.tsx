@@ -1,5 +1,5 @@
 import styles from "./calculator.module.css"
-import { checkInvalidCharacters } from "../utils/functions"
+import { isValidForIntegerCharacter } from "../utils/functions"
 
 type Props = {
     fieldName: string
@@ -9,6 +9,11 @@ type Props = {
 }
 
 export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue, icon }: Props) {
+
+    const checkInputValidity = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (!isValidForIntegerCharacter(e.key)) e.preventDefault()
+    }
+
     return (
         <>
             <label className={styles.label}>{fieldName}</label>
@@ -17,7 +22,7 @@ export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue, ic
                     className={styles.inputField}
                     type="number"
                     value={integerValue > 0 ? integerValue : ""}
-                    onKeyDown={checkInvalidCharacters}
+                    onKeyDown={checkInputValidity}
                     onChange={onChangeIntegerValue}
                 />
                 {icon && <div className={styles.inputFieldIcon}>{icon}</div>}
