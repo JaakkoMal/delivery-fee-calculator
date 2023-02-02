@@ -17,7 +17,6 @@ export function CalculatorContainer() {
     const [orderInfo, setOrderInfo] = useState<OrderInfo>(initialOrderInfo)
 
     const onChangeCartValue = (cartValue: number) => {
-        console.log("Setting cart value: ", cartValue)
         setOrderInfo(prev => { return {...prev, cartValue: Number(cartValue)}})
     }
 
