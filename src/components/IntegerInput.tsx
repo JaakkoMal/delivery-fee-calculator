@@ -4,7 +4,7 @@ import { isValidForIntegerCharacter } from "../utils/functions"
 type Props = {
     fieldName: string
     integerValue: number
-    icon: string
+    icon?: string
     onChangeIntegerValue: (value: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -21,6 +21,7 @@ export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue, ic
                 <input 
                     className={styles.inputField}
                     type="number"
+                    data-testid='integerInput'
                     value={integerValue > 0 ? integerValue : ""}
                     onKeyDown={checkInputValidity}
                     onChange={onChangeIntegerValue}
