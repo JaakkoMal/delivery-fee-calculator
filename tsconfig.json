@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "__tests__/functions.test.ts", "__mocks__/mockOrderInfo.ts"],
+  "include": ["src", "__tests__/functions/functions.test.ts", "__mocks__/mockOrderInfo.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

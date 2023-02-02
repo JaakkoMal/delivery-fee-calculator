@@ -5,7 +5,7 @@ import { useState } from 'react'
 type Props = {
     fieldName: string
     onChangeFloatValue: (value: number) => void
-    icon: string
+    icon?: string
 }
 
 export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
@@ -30,6 +30,7 @@ export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
                 <input 
                     className={styles.inputField}
                     type="number"
+                    data-testid='floatInput'
                     value={formattedFloat}
                     onKeyDown={checkInputValidity}
                     onChange={handleFloatValueChange}
