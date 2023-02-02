@@ -11,7 +11,7 @@ import {
     checkDecimalCount,
     isValidForIntegerCharacter,
     isValidForFloatValue
-} from '../src/utils/functions'
+} from '../../src/utils/functions'
 
 import {
     mockOrderInfoZeroInputs,
@@ -21,7 +21,7 @@ import {
     mockOrderInfoItemAmount,
     mockOrderInfoFridayRush,
     mockOrderInfoMixedFees
-} from '../__mocks__/mockOrderInfo'
+} from '../../__mocks__/mockOrderInfo'
 
 describe('isCartValueHundredOrMore', () => {
     it ('returns true if provided value is exactly 100', () => {
