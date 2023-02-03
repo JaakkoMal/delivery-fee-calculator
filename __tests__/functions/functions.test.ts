@@ -25,15 +25,15 @@ import {
 
 describe('isCartValueHundredOrMore', () => {
     it ('returns true if provided value is exactly 100', () => {
-        expect(isCartValueHundredOrMore(100)).toBe(true)
+        expect(isCartValueHundredOrMore(100)).toBeTruthy()
     })
     it ('returns true if provided value is more than 100', () => {
-        expect(isCartValueHundredOrMore(101)).toBe(true)
-        expect(isCartValueHundredOrMore(100.1)).toBe(true)
+        expect(isCartValueHundredOrMore(101)).toBeTruthy()
+        expect(isCartValueHundredOrMore(100.1)).toBeTruthy()
     })
     it ('returns false if provided value is less than 100', () => {
-        expect(isCartValueHundredOrMore(99)).toBe(false)
-        expect(isCartValueHundredOrMore(99.99)).toBe(false)
+        expect(isCartValueHundredOrMore(99)).not.toBeTruthy()
+        expect(isCartValueHundredOrMore(99.99)).not.toBeTruthy()
     })
 })
 
@@ -66,13 +66,13 @@ describe('addFeeForEveryBeginning500m', () => {
 
 describe('isDeliveryCostAtMaximum', () => {
     it ('returns true if provided value is 15 or more', () => {
-        expect(isDeliveryCostAtMaximum(15)).toBe(true)
-        expect(isDeliveryCostAtMaximum(16)).toBe(true)
-        expect(isDeliveryCostAtMaximum(100)).toBe(true)
+        expect(isDeliveryCostAtMaximum(15)).toBeTruthy()
+        expect(isDeliveryCostAtMaximum(16)).toBeTruthy()
+        expect(isDeliveryCostAtMaximum(100)).toBeTruthy()
     })
     it ('returns false if provided value is less than 15', () => {
-        expect(isDeliveryCostAtMaximum(14)).toBe(false)
-        expect(isDeliveryCostAtMaximum(14.99)).toBe(false)
+        expect(isDeliveryCostAtMaximum(14)).not.toBeTruthy()
+        expect(isDeliveryCostAtMaximum(14.99)).not.toBeTruthy()
     })
 })
 
@@ -93,13 +93,13 @@ describe('addFeeForMultipleItems', () => {
 
 describe('isFridayRush', () => {
     it ('returns true if provided date is friday and provided time is between 15 and 19 UTC', () => {
-        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T15:00:00Z'))).toBe(true)
-        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T18:59:00Z'))).toBe(true)
+        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T15:00:00Z'))).toBeTruthy()
+        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T18:59:00Z'))).toBeTruthy()
     })
     it ('returns false if either day is not friday or time is not between 15 and 19 UTC', () => {
-        expect(isFridayRush(new Date('2023-01-28T03:00:00Z'), new Date('2023-01-27T15:00:00Z'))).toBe(false)
-        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T19:01:00Z'))).toBe(false)
-        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T14:59:00Z'))).toBe(false)
+        expect(isFridayRush(new Date('2023-01-28T03:00:00Z'), new Date('2023-01-27T15:00:00Z'))).not.toBeTruthy()
+        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T19:01:00Z'))).not.toBeTruthy()
+        expect(isFridayRush(new Date('2023-01-27T03:00:00Z'), new Date('2023-01-27T14:59:00Z'))).not.toBeTruthy()
     })
 })
 
@@ -154,32 +154,37 @@ describe('calculateDeliveryCost', () => {
 // User inputs
 describe('checkDecimalCount', () => {
     it ('returns true when provided number string has more than 2 decimals', () => {
-        expect(checkDecimalCount('123')).toBe(false)
-        expect(checkDecimalCount('123.45')).toBe(false)
-        expect(checkDecimalCount('123,45')).toBe(false)
-        expect(checkDecimalCount('123.123')).toBe(true)
-        expect(checkDecimalCount('123,123')).toBe(true)
+        expect(checkDecimalCount('123')).not.toBeTruthy()
+        expect(checkDecimalCount('123.45')).not.toBeTruthy()
+        expect(checkDecimalCount('123,45')).not.toBeTruthy()
+
+        expect(checkDecimalCount('123.123')).toBeTruthy()
+        expect(checkDecimalCount('123,123')).toBeTruthy()
     })
 })
 
 describe('isValidForIntegerCharacter', () => {
     it ('returns true if character is a number and false if anything but number', () => {
-        expect(isValidForIntegerCharacter('1')).toBe(true)
-        expect(isValidForIntegerCharacter('0')).toBe(true)
-        expect(isValidForIntegerCharacter('.')).toBe(false)
-        expect(isValidForIntegerCharacter('e')).toBe(false)
-        expect(isValidForIntegerCharacter('-')).toBe(false)
+        expect(isValidForIntegerCharacter('1')).toBeTruthy()
+        expect(isValidForIntegerCharacter('0')).toBeTruthy()
+
+        expect(isValidForIntegerCharacter('.')).not.toBeTruthy()
+        expect(isValidForIntegerCharacter('e')).not.toBeTruthy()
+        expect(isValidForIntegerCharacter('-')).not.toBeTruthy()
+        expect(isValidForIntegerCharacter('E')).not.toBeTruthy()
     })
 })
 
 describe('isValidForFloatValue', () => {
     it ("returns true if input is not '+', '-' or 'e'. In case input is ',' or '.' returns true if existing value does not already include a .", () => {
-        expect(isValidForFloatValue('1', '')).toBe(true)
-        expect(isValidForFloatValue('.', '12')).toBe(true)
-        expect(isValidForFloatValue('.', '12.0')).toBe(false)
-        expect(isValidForFloatValue(',', '12.0')).toBe(false)
-        expect(isValidForFloatValue('+', '1')).toBe(false)
-        expect(isValidForFloatValue('e', '144')).toBe(false)
+        expect(isValidForFloatValue('1', '')).toBeTruthy()
+        expect(isValidForFloatValue('.', '12')).toBeTruthy()
+
+        expect(isValidForFloatValue('.', '12.0')).not.toBeTruthy()
+        expect(isValidForFloatValue(',', '12.0')).not.toBeTruthy()
+        expect(isValidForFloatValue('+', '1')).not.toBeTruthy()
+        expect(isValidForFloatValue('e', '144')).not.toBeTruthy()
+        expect(isValidForFloatValue('E', '144')).not.toBeTruthy()
     })
 })
 

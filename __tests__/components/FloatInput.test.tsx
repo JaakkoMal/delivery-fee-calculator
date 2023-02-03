@@ -40,5 +40,7 @@ describe('Float input component', () => {
         expect(mockOnChange).toHaveBeenCalledTimes(0)
         fireEvent.input(inputField, {target: { value : '+'}})
         expect(mockOnChange).toHaveBeenCalledTimes(0)
+        fireEvent.input(inputField, {target: { value : 'E'}})
+        expect(mockOnChange).toHaveBeenCalledTimes(0)
     })
 })

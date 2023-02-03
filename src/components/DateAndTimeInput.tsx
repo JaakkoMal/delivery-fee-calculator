@@ -18,19 +18,21 @@ export function DateAndTimeInput({ fieldName, date, time, onChangeDate, onChange
             <label className={styles.label}>{fieldName}</label>
             <div className={styles.reactDatePickerContainer}>
                 <DatePicker 
+                    title='datePicker'
                     dateFormat="dd/MM/yyyy"
                     selected={date}
                     onKeyDown={e => e.preventDefault()}
                     onChange={onChangeDate}
                 />
                 <DatePicker
+                    title="timePicker"
                     dateFormat="HH:mm"
                     timeFormat="HH:mm"
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={5}
                     selected={time}
-                    strictParsing
+                    onKeyDown={e => e.preventDefault()}
                     onChange={onChangeTime}
                 />
             </div>

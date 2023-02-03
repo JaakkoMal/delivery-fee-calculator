@@ -37,6 +37,7 @@ export function CalculatorContainer() {
     }
 
     const onChangeOrderDate = (newOrderDate: Date ) => {
+        console.log(newOrderDate)
         setOrderInfo(prev => { return {...prev, orderDate: newOrderDate}})
     }
 
