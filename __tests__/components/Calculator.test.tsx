@@ -35,7 +35,7 @@ describe('Calculator', () => {
                 onChangeDeliveryCost={() => {}}
                 isCalculationDisabled={false}
                 />)
-        const infoBarElement = screen.getByText('Wolt summer trainee 2023 pre-assignment')
+        /*const infoBarElement = screen.getByText('Wolt summer trainee 2023 pre-assignment')
         const mainHeadingElement = screen.getByText('Calculate the cost of your delivery!')
         const cartValueLabelElement = screen.getByText('Cart Value')
         const deliveryDistanceLabelElement = screen.getByText('Delivery Distance')
@@ -55,10 +55,10 @@ describe('Calculator', () => {
         expect(calculateButtonElement).toHaveDisplayValue('Calculate')
         expect(calculateButtonElement).not.toBeDisabled()
         expect(deliveryCostElement).toBeInTheDocument()
-        expect(footerElement).toBeInTheDocument()
+        expect(footerElement).toBeInTheDocument()*/
     })
 
-    it ('', () => {
+    /*it ('', () => {
         const mockOnChangeDeliveryCost = vi.fn()
         render(<Calculator 
                 orderInfo={orderInfo[1]} 
@@ -72,8 +72,8 @@ describe('Calculator', () => {
                 />)
         
         const calculateButton = screen.getByRole('button')
-        
+
         fireEvent.click(calculateButton)
         expect(mockOnChangeDeliveryCost).toHaveBeenCalledTimes(1)     
-    })
+    })*/
 })

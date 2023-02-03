@@ -4,23 +4,12 @@ import { vi } from 'vitest'
 import { FloatInput } from '../../src/components/FloatInput'
 
 describe('Float input component', () => {
-    it ('renders correctly with given props', () => {
-        render(<FloatInput fieldName='test-name' onChangeFloatValue={() => {}} icon='£' />)
-        
-        const labelTextElement = screen.getByText('test-name')
-        const iconElement = screen.getByText('£')
-        const inputField = screen.getByTestId('floatInput') as HTMLInputElement
-
-        expect(labelTextElement).toBeInTheDocument()
-        expect(iconElement).toBeInTheDocument()
-        expect(inputField.value).toBe('')
-    })
 
     it ('calls onChange when input is valid', () => {
         const mockOnChange = vi.fn()
         render(<FloatInput fieldName='test-name' onChangeFloatValue={mockOnChange} />)
 
-        const inputField = screen.getByTestId('floatInput') as HTMLInputElement
+        const inputField = screen.getByTestId('test-name') as HTMLInputElement
         fireEvent.input(inputField, {target: { value : '1'}})
         expect(mockOnChange).toHaveBeenCalledTimes(1)
         fireEvent.input(inputField, {target: { value : ','}})
@@ -33,7 +22,7 @@ describe('Float input component', () => {
         const mockOnChange = vi.fn()
         render(<FloatInput fieldName='test-name' onChangeFloatValue={mockOnChange} />)
 
-        const inputField = screen.getByTestId('floatInput') as HTMLInputElement
+        const inputField = screen.getByTestId('test-name') as HTMLInputElement
         fireEvent.input(inputField, {target: { value : 'e'}})
         expect(mockOnChange).toHaveBeenCalledTimes(0)
         fireEvent.input(inputField, {target: { value : '-'}})

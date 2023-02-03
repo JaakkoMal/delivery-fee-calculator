@@ -30,7 +30,7 @@ export function FloatInput({ fieldName, onChangeFloatValue, icon }: Props) {
                 <input 
                     className={styles.inputField}
                     type="number"
-                    data-testid='floatInput'
+                    data-testid={fieldName}
                     value={formattedFloat}
                     onKeyDown={checkInputValidity}
                     onChange={handleFloatValueChange}
