@@ -1,13 +1,13 @@
 import { OrderInfo } from '../types/Types'
 
 export const isValidForIntegerCharacter = (inputValue: string): boolean => {
-    const invalidCharacters: string[] = ['e','+','-',',','.']
+    const invalidCharacters: string[] = ['E','e','+','-',',','.']
     if (invalidCharacters.includes(inputValue)) return false
     return true
 }
 
 export const isValidForFloatValue = (inputValue: string, currentValue: string): boolean => {
-    const invalidCharacters: string[] = ['e','+','-']
+    const invalidCharacters: string[] = ['E','e','+','-']
     const commaAndDot = /^[\.\,]/
     if (invalidCharacters.includes(inputValue)) return false
     if (commaAndDot.test(inputValue) && currentValue.includes('.' || ',')) return false
