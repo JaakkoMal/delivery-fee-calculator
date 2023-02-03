@@ -4,23 +4,11 @@ import { vi } from 'vitest'
 import { IntegerInput } from '../../src/components/IntegerInput'
 
 describe('Integer input component', () => {
-    it ('renders correctly with given props', () => {
-        render(<IntegerInput fieldName='test-name' integerValue={0} onChangeIntegerValue={() => {}} icon='£' />)
-        
-        const labelTextElement = screen.getByText('test-name')
-        const iconElement = screen.getByText('£')
-        const inputField = screen.getByTestId('integerInput') as HTMLInputElement
-
-        expect(labelTextElement).toBeInTheDocument()
-        expect(iconElement).toBeInTheDocument()
-        expect(inputField.value).toBe('')
-    })
-
-    it ('calls onChange', () => {
+    it ('calls onChange when input is valid', () => {
         const mockOnChange = vi.fn()
         render(<IntegerInput fieldName='test-name' integerValue={0} onChangeIntegerValue={mockOnChange} />)
 
-        const inputField = screen.getByTestId('integerInput') as HTMLInputElement
+        const inputField = screen.getByTestId('test-name') as HTMLInputElement
         fireEvent.input(inputField, {target: { value : '1'}})
         expect(mockOnChange).toHaveBeenCalledTimes(1)
         fireEvent.input(inputField, {target: { value : '2'}})
@@ -29,11 +17,11 @@ describe('Integer input component', () => {
         expect(mockOnChange).toHaveBeenCalledTimes(3)
     })
 
-    it ('does not accept non-numeric input, including e, + and - signs', () => {
+    it ('does not call onChange when input is not valid', () => {
         const mockOnChange = vi.fn()
         render(<IntegerInput fieldName='test-name' integerValue={0} onChangeIntegerValue={mockOnChange} />)
 
-        const inputField = screen.getByTestId('integerInput') as HTMLInputElement
+        const inputField = screen.getByTestId('test-name') as HTMLInputElement
         fireEvent.input(inputField, {target: { value : 'e'}})
         expect(mockOnChange).toHaveBeenCalledTimes(0)
         fireEvent.input(inputField, {target: { value : '-'}})

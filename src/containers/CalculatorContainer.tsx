@@ -11,7 +11,7 @@ const initialOrderInfo: OrderInfo = {
     orderTime: new Date(),
     deliveryCost: 0
 }
-/////////
+
 export function CalculatorContainer() {
 
     const [orderInfo, setOrderInfo] = useState<OrderInfo>(initialOrderInfo)
@@ -26,14 +26,14 @@ export function CalculatorContainer() {
     }, [orderInfo.cartValue, orderInfo.deliveryDistance, orderInfo.amountItems])
 
     const onChangeCartValue = (cartValue: number) => {
-        setOrderInfo(prev => { return {...prev, cartValue: Number(cartValue)}})
+        setOrderInfo({...orderInfo, cartValue: cartValue})
     }
 
     const onChangeDeliveryDistance = (e: React.ChangeEvent<HTMLInputElement> ) => {
         e.preventDefault()
         const newDeliveryDistance = Number(e.target.value)
         if (!Number.isNaN(newDeliveryDistance)) {
-            setOrderInfo(prev => { return {...prev, deliveryDistance: newDeliveryDistance}})
+            setOrderInfo({...orderInfo, deliveryDistance: newDeliveryDistance})
         }
     }
 
@@ -41,25 +41,20 @@ export function CalculatorContainer() {
         e.preventDefault()
         const newAmountItems = Number(e.target.value)
         if (!Number.isNaN(newAmountItems)) {
-            setOrderInfo(prev => {return {...prev, amountItems: newAmountItems}})
+            setOrderInfo({...orderInfo, amountItems: newAmountItems})
         } 
     }
 
     const onChangeOrderDate = (newOrderDate: Date ) => {
-        console.log(newOrderDate)
-        setOrderInfo(prev => { return {...prev, orderDate: newOrderDate}})
+        setOrderInfo({...orderInfo, orderDate: newOrderDate})
     }
 
     const onChangeOrderTime = (newOrderTime: Date) => {
-        setOrderInfo(prev => { return {...prev, orderTime: newOrderTime}})
+        setOrderInfo({...orderInfo, orderTime: newOrderTime})
     }
 
-    /*const isCalculationDisabled = (): boolean => {
-        return (orderInfo.cartValue === 0 || orderInfo.deliveryDistance === 0 || orderInfo.amountItems === 0)
-    }*/
-
     const onChangeDeliveryCost = (fullOrderInfo: OrderInfo) => {
-        setOrderInfo(prev => { return {...prev, deliveryCost: calculateDeliveryCost(fullOrderInfo)}})
+        setOrderInfo({...orderInfo, deliveryCost: calculateDeliveryCost(fullOrderInfo)})
     }
 
     return (

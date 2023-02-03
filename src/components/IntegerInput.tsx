@@ -21,7 +21,7 @@ export function IntegerInput({ fieldName, integerValue, onChangeIntegerValue, ic
                 <input 
                     className={styles.inputField}
                     type="number"
-                    data-testid='integerInput'
+                    data-testid={fieldName}
                     value={integerValue > 0 ? integerValue : ""}
                     onKeyDown={checkInputValidity}
                     onChange={onChangeIntegerValue}
