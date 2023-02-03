@@ -13,9 +13,9 @@ type Props = {
     onChangeOrderDate: (value: Date) => void
     onChangeOrderTime: (value: Date) => void
     onChangeDeliveryCost: (fullOrderInfo: OrderInfo) => void
-    isCalculationDisabled: () => boolean
+    isCalculationDisabled: boolean
 }
-
+///////////
 export function Calculator({ 
     orderInfo, 
     onChangeCartValue,
@@ -67,7 +67,7 @@ export function Calculator({
                     className={styles["calculate-btn"]}
                     type="submit" 
                     value="Calculate"
-                    disabled={isCalculationDisabled() ? true : false}
+                    disabled={isCalculationDisabled ? true : false}
                 />
                 <p className={styles.total}>Delivery Cost: {orderInfo.deliveryCost.toFixed(2)} €</p>
             </form>
