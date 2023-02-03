@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Calculator } from '../components/Calculator'
 import { OrderInfo } from '../types/Types'
 import { calculateDeliveryCost } from '../utils/functions'
@@ -11,10 +11,19 @@ const initialOrderInfo: OrderInfo = {
     orderTime: new Date(),
     deliveryCost: 0
 }
-
+/////////
 export function CalculatorContainer() {
 
     const [orderInfo, setOrderInfo] = useState<OrderInfo>(initialOrderInfo)
+    const [isCalculationDisabled, setIsCalculationDisabled] = useState<boolean>(true)
+
+    useEffect(() => {
+        if (orderInfo.cartValue === 0 || orderInfo.deliveryDistance === 0 || orderInfo.amountItems === 0) {
+            setIsCalculationDisabled(true)
+        } else {
+            setIsCalculationDisabled(false)
+        }
+    }, [orderInfo.cartValue, orderInfo.deliveryDistance, orderInfo.amountItems])
 
     const onChangeCartValue = (cartValue: number) => {
         setOrderInfo(prev => { return {...prev, cartValue: Number(cartValue)}})
@@ -45,9 +54,9 @@ export function CalculatorContainer() {
         setOrderInfo(prev => { return {...prev, orderTime: newOrderTime}})
     }
 
-    const isCalculationDisabled = (): boolean => {
+    /*const isCalculationDisabled = (): boolean => {
         return (orderInfo.cartValue === 0 || orderInfo.deliveryDistance === 0 || orderInfo.amountItems === 0)
-    }
+    }*/
 
     const onChangeDeliveryCost = (fullOrderInfo: OrderInfo) => {
         setOrderInfo(prev => { return {...prev, deliveryCost: calculateDeliveryCost(fullOrderInfo)}})
