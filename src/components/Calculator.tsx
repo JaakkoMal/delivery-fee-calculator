@@ -15,7 +15,7 @@ type Props = {
     onChangeDeliveryCost: (fullOrderInfo: OrderInfo) => void
     isCalculationDisabled: boolean
 }
-///////////
+
 export function Calculator({ 
     orderInfo, 
     onChangeCartValue,
