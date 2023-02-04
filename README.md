@@ -23,4 +23,4 @@ Vite project with React and TypeScript.
 
 Testing done with Vitest and React Testing Library.
 
-![WoltSC](https://user-images.githubusercontent.com/91364981/216724596-dffde099-760b-4cd6-bf43-b528113ef327.png)
+![WoltSC](https://user-images.githubusercontent.com/91364981/216767066-ebf731be-5624-4f9b-80ba-6f5963853d61.png)
